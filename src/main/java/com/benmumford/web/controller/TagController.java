@@ -1,4 +1,4 @@
-package com.benmumford.web;
+package com.benmumford.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,20 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.benmumford.data.dao.TagRepository;
-import com.benmumford.data.entity.Tag;
+import com.benmumford.web.ui.TagConverter;
+import com.benmumford.web.ui.TagUI;
+import com.google.common.collect.Lists;
 
 @RestController
 public class TagController {
 	
 	@Autowired private TagRepository tagRepository;
+	@Autowired private TagConverter tagConverter;
 
 	@RequestMapping("/tags")
-	public Iterable<Tag> getTags() {
-		return tagRepository.findAll();
+	public Iterable<TagUI> getTags() {
+		return Lists.transform(Lists.newArrayList(tagRepository.findAll()), tagConverter);
 	}
 
 	@RequestMapping("/tag/{id}")
-	public Tag getTag(@PathVariable("id") Integer id) {
-		return tagRepository.findOne(id);
+	public TagUI getTag(@PathVariable("id") Integer id) {
+		return tagConverter.apply(tagRepository.findOne(id));
 	}
 }
