@@ -13,8 +13,14 @@ import com.google.common.collect.Lists;
 @RestController
 public class TagController {
 	
-	@Autowired private TagRepository tagRepository;
-	@Autowired private TagConverter tagConverter;
+	private TagRepository tagRepository;
+	private TagConverter tagConverter;
+
+	@Autowired
+	public TagController(TagRepository tagRepository, TagConverter tagConverter) {
+		this.tagRepository = tagRepository;
+		this.tagConverter = tagConverter;
+	}
 
 	@RequestMapping("/tags")
 	public Iterable<TagUI> getTags() {

@@ -16,9 +16,16 @@ import com.google.common.collect.Lists;
 @RestController
 public class NoteController {
 
-	@Autowired private TagRepository tagRepository;
-	@Autowired private NoteRepository noteRepository;
-	@Autowired private NoteConverter noteConverter;
+	private TagRepository tagRepository;
+	private NoteRepository noteRepository;
+	private NoteConverter noteConverter;
+	
+	@Autowired
+	public NoteController(TagRepository tagRepository, NoteRepository noteRepository, NoteConverter noteConverter) {
+		this.tagRepository = tagRepository;
+		this.noteRepository = noteRepository;
+		this.noteConverter = noteConverter;
+	}
 
 	@RequestMapping("/notes")
 	public List<NoteUI> getNotes() {
