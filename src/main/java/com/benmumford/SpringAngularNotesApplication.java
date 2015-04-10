@@ -24,15 +24,19 @@ public class SpringAngularNotesApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
-		Tag tag = new Tag();
-		tag.setName("name");
-		tag = tagRepository.save(tag);
+		Tag tag1 = new Tag();
+		tag1.setName("name1");
+		tagRepository.save(tag1);
+		
+		Tag tag2 = new Tag();
+		tag2.setName("name2");
+		tag2 = tagRepository.save(tag2);
 		
 		Note note = new Note();
 		note.setBusinessContent("businessContent");
 		note.setTechnicalContent("technicalContent");
 		note.setTitle("title");
-		note.setTags(Arrays.asList(tag));
+		note.setTags(Arrays.asList(tag1));
 		note = noteRepository.save(note);
 	}
 }
