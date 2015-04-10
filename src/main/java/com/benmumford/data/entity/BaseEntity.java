@@ -27,6 +27,14 @@ public abstract class BaseEntity {
 		return id;
 	}
 	
+	public DateTime getCreateDate() {
+		return createDate;
+	}
+
+	public DateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
 	@PreUpdate
 	@PrePersist
 	public void updateTimeStamp() {
