@@ -1,1 +1,6 @@
-<p ng-bind="message"></p>
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="tag in tags" ng-click="tagClicked(tag)" >
+  	{{tag.name}}
+  	<span class="modifiedDate">{{tag.modifiedDate}}</span>
+  </li>
+</ul>
