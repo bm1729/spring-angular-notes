@@ -1,5 +1,5 @@
 <ul class="list-group">
-  <li class="list-group-item" ng-repeat="note in notes">
+  <li class="list-group-item" ng-repeat="note in notes" ng-click="noteClicked(note)" >
   	{{note.title}}
   	<span class="modifiedDate">{{note.modifiedDate}}</span>
   </li>

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.benmumford.data.dao.NoteRepository;
 import com.benmumford.data.dao.TagRepository;
+import com.benmumford.data.entity.Note;
+import com.benmumford.data.entity.Tag;
+import com.benmumford.web.core.ResourceNotFoundException;
 import com.benmumford.web.ui.NoteConverter;
 import com.benmumford.web.ui.NoteUI;
 import com.google.common.collect.Lists;
@@ -34,11 +37,19 @@ public class NoteController {
 	
 	@RequestMapping("/notes/tag/{id}")
 	public List<NoteUI> getNotesByTag(@PathVariable("id") Integer id) {
-		return Lists.transform(Lists.newArrayList(tagRepository.findOne(id).getNotes()), noteConverter);
+		Tag tag = tagRepository.findOne(id);
+		if (tag == null) {
+			throw new ResourceNotFoundException("Cannot find tag with id: " + id);
+		}
+		return Lists.transform(Lists.newArrayList(tag.getNotes()), noteConverter);
 	}
 
 	@RequestMapping("/note/{id}")
 	public NoteUI getNote(@PathVariable("id") Integer id) {
-		return noteConverter.apply(noteRepository.findOne(id));
+		Note note = noteRepository.findOne(id);
+		if (note == null) {
+			throw new ResourceNotFoundException("Cannot find note with id: " + id);
+		}
+		return noteConverter.apply(note);
 	}
 }
